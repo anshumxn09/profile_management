@@ -2,11 +2,13 @@ const express = require('express');
 const connection = require('./database/connection');
 const router = require('./routes/profileRoutes');
 const mongoose = require('mongoose');
+const userRouter = require('./routes/userRoutes');
 const app = express();
 
 mongoose.set('strictQuery', false);
 app.use(express.json());
 app.use("/api", router);
+app.use("/api", userRouter);
 
 app.get("/", (req, res) => {
     return res.json({
