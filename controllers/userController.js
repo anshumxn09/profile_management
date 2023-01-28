@@ -7,6 +7,11 @@ const userController = {
     register : async (req, res) => {
         try {
             const {email, password, name, isTeam} = req.body;
+            if(!email || !password || !name){
+                return res.json({
+                    message : "kindly fill out all the details"
+                })
+            }
             if(!emailValidation.validate(email)){
                 return res.json({
                     message : "invalid email is provided"
@@ -64,7 +69,8 @@ const userController = {
                 })
             }
             const {_id} = userExist;
-            const token = await jwt.sign({_id, email : userExist.email,}, "ANYTHINGFORNOWJHFVBYSDFHVKJFDHVLBJFVLBSHFJVDJKBDFVLNAJDLKVJADFLUOVHADFJLVBAFVHLAH");
+            const token = await jwt.sign({_id}, "ANYTHINGFORNOWJHFVBYSDFHVKJFDHVLBJFVLBSHFJVDJKBDFVLNAJDLKVJADFLUOVHADFJLVBAFVHLAH");
+
             // 32 letter secret key
             return res.json({
                 token

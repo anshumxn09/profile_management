@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const connection = require('./database/connection');
 const router = require('./routes/profileRoutes');
@@ -19,7 +20,7 @@ app.get("/", (req, res) => {
 const startMyApp = async () => {
     try {
         await connection();
-        app.listen(5000, () => {
+        app.listen(process.env.PORT, () => {
             console.log('successfully running no error');
         })
     } catch (error) {
